@@ -1,0 +1,2 @@
+train_size,test_size,model,mae,rmse
+1168,292,LinearRegression on log1p(SalePrice),16970.2,25418.78
