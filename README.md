@@ -42,8 +42,15 @@ Script này làm sạch dữ liệu theo hướng thủ công:
 - One-hot encoding cho phần còn lại.
 - Lưu dữ liệu sạch ra `train_cleaned.csv`.
 
-2. Script `house_price_analysis.py`
-Script này xử lý dữ liệu thiếu ngay trong pipeline huấn luyện:
+2. Cấu trúc tách module với `house_price_analysis.py`
+`house_price_analysis.py` là file chạy chính, còn phần logic được tách ra các module riêng trong thư mục `house_price/`:
+- `config.py`: khai báo đường dẫn dữ liệu và thư mục output.
+- `data_processing.py`: đọc dữ liệu, bỏ cột `Id`, thống kê missing và phân tích tương quan.
+- `visualization.py`: tạo scatter plot và heatmap.
+- `modeling.py`: xây dựng pipeline tiền xử lý và mô hình hồi quy.
+- `reporting.py`: sinh file tóm tắt kết quả `analysis_summary.md`.
+
+Pipeline này xử lý dữ liệu thiếu ngay trong lúc huấn luyện:
 - Biến số học được điền bằng `median`.
 - Biến phân loại được điền bằng `most_frequent`.
 - Sau đó dữ liệu phân loại được one-hot encoding bằng `OneHotEncoder`.
@@ -99,7 +106,12 @@ Kết quả hiện tại trên tập test:
 ### File mã nguồn
 - `read.py`: file đọc thử `train.csv`, in kích thước dữ liệu và xem nhanh vài dòng đầu. Vai trò chính là kiểm tra dữ liệu ban đầu.
 - `clean.py`: script tiền xử lý dữ liệu theo hướng thủ công, bao gồm điền thiếu, mã hóa ordinal, tạo thêm một số feature và lưu `train_cleaned.csv`.
-- `house_price_analysis.py`: script chính của project hiện tại. File này thực hiện toàn bộ quy trình từ đọc dữ liệu, phân tích, trực quan hóa, huấn luyện mô hình đến lưu kết quả đánh giá.
+- `house_price_analysis.py`: entrypoint của chương trình. File này gọi lần lượt các module xử lý, trực quan hóa, mô hình hóa và báo cáo.
+- `house_price/config.py`: định nghĩa `DATA_PATH`, `OUTPUT_DIR`, `FIGURES_DIR`.
+- `house_price/data_processing.py`: chứa các hàm đọc dữ liệu, thống kê missing và phân tích mối quan hệ với `SalePrice`.
+- `house_price/visualization.py`: chứa các hàm vẽ scatter plot và heatmap.
+- `house_price/modeling.py`: chứa hàm huấn luyện mô hình `LinearRegression` và tính MAE, RMSE.
+- `house_price/reporting.py`: chứa hàm tổng hợp kết quả ra file markdown.
 - `README.md`: tài liệu mô tả dự án và cách chạy.
 
 ### File kết quả trong thư mục `outputs/`
@@ -125,6 +137,13 @@ Housse Prices/
 |-- read.py
 |-- clean.py
 |-- house_price_analysis.py
+|-- house_price/
+|   |-- __init__.py
+|   |-- config.py
+|   |-- data_processing.py
+|   |-- visualization.py
+|   |-- modeling.py
+|   `-- reporting.py
 |-- README.md
 |-- outputs/
 |   |-- analysis_summary.md
@@ -164,7 +183,7 @@ Project đã hoàn thành các yêu cầu chính của đề bài:
 - Có xây dựng mô hình hồi quy dự đoán giá.
 - Có đánh giá mô hình bằng MAE và RMSE.
 
-Mô hình hiện tại là baseline tốt, dễ giải thích và dễ trình bày trong báo cáo. Nếu cần cải thiện độ chính xác, có thể thử thêm các mô hình mạnh hơn như Ridge, Random Forest, XGBoost hoặc thực hiện feature engineering sâu hơn.
+Mô hình hiện tại là baseline tốt, Nếu cần cải thiện độ chính xác, có thể thêm các mô hình mạnh hơn như Ridge, Random Forest, XGBoost hoặc thực hiện feature engineering sâu hơn.
 
 ## 9. Thành viên nhóm
 - Tăng Anh Tuấn - 20221964
