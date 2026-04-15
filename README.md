@@ -188,5 +188,5 @@ Mô hình hiện tại là baseline tốt, Nếu cần cải thiện độ chín
 ## 9. Thành viên nhóm
 - Tăng Anh Tuấn - 20221964
 - Nguyễn Quang Linh - 20221862
-- Vương Tuấn Hưng - 20221901
-- Đặng Đức Trí - 20221845
+- Vương Tuấn Hưng - 20221845
+- Đặng Đức Trí - 20221901
